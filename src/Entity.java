@@ -1,4 +1,4 @@
-public enum EntityType {
+public enum Entity {
 
     //---[mother : 0]--[father : 1]--[daughter1 : 2]--[daughter2 : 3]----
     //---[son1 : 4]--[son2 : 5]--[boat : 6]------------------------------
@@ -16,4 +16,13 @@ public enum EntityType {
             case Boat -> 6;
         };
     }
+
+    public boolean hasDriversLicense(){
+
+        return switch(this){
+            case Mother, Father -> true;
+            default -> false;
+        };
+    }
+
 }

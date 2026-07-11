@@ -1,8 +1,12 @@
 public interface INode {
 
-    INode Clone();
+    INode clone();
 
-    //---Getter---------------------------
+    boolean equals(Object obj);
+
+    INode getMotherNode();
+
     IState getState();
-    
+
+    void setState(Entity[] entities);
 }

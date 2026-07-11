@@ -1,38 +1,61 @@
 public class Node implements INode{
 
-    private IState state;
-    private INode motherNode;
+    IState state;
+    INode motherNode;
 
-    //---Constructor------------------------------------
+    //---Constructor--------------------------------------------
     public Node(IState state, INode motherNode){
 
-        this.motherNode = motherNode;
         this.state = state;
+        this.motherNode = motherNode;
     }
 
-    //--------------------------------------------------
+    //-----------------------------------------------------------
     @Override
-    public INode Clone(){
-
-        IState copystate = new State();
-
-        for (int i = 0; i < state.getPositions().length; i++)
-            copystate.getPositions()[i] = state.getPositions()[i];
-
-        return new Node(copystate, this);
-    }
-
-    //---------------------------------------
-//    @Override
-//    public boolean getEntityState(int i){
-//
-//
-//    }
-
-    //---Getter-------------------------------
-    @Override
-    public IState getState(){
+    public IState getState() {
 
         return state;
     }
+
+    @Override
+    public void setState(Entity[] entities) {
+
+        for (Entity e : entities)
+            state.moveEntity(e);
+    }
+
+    @Override
+    public INode clone(){
+
+        IState copy = Factory.createState();
+
+        for (Entity e : Entity.values())
+            copy.getPositions()[e.getIndex()] = state.getPositions()[e.getIndex()];
+
+        return Factory.createChildNode(copy, this);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+
+        if(this == obj) return true;
+
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        INode other = (INode) obj;
+
+        for(Entity e : Entity.values())
+            if (state.getPositions()[e.getIndex()] !=
+                    other.getState().getPositions()[e.getIndex()])
+                return false;
+
+        return true;
+    }
+
+    @Override
+    public INode getMotherNode() {
+
+        return motherNode;
+    }
+
 }

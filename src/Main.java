@@ -1,23 +1,32 @@
-class Main{
+public class Main {
 
-    public static int trnsferIndex;
+    public static int transferIndex = 1;
 
     public static void main(String[] args){
 
+        ISearchAlgorithm searcher = Factory.createSearcher();
+        INode result = searcher.search();
+
+        showPath(result);
     }
 
-    public static Node initialState(){
-        // INode starterNode = NodeFactory.createNode();
-        
-        return new Node();
+    public static void show(INode node){
 
+        INodePrinter printer = Factory.createPrinter();
+
+
+        System.out.println("**************************************");
+        System.out.println("Tranfer index: " + transferIndex);
+        System.out.println(printer.toString(node));
+
+        transferIndex++;
     }
 
-    public static void show(Node node){
-        System.out.println(node.toString()); 
-    }
+    public static void showPath(INode node){
 
-    public static void showPath(Node node){
+        if (node == null) return;
+        showPath(node.getMotherNode());
+        show(node);
 
     }
 }

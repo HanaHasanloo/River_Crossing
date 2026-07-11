@@ -1,4 +1,8 @@
 public interface ISearchAlgorithm {
-    
-    Node search(INode starterNode);
+
+    boolean isValid(INode node);
+
+    INode search();
+
+
 }
